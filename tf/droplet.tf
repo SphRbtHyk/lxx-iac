@@ -89,9 +89,7 @@ ansible-pull -U ${var.git_repo} \
   -e "docker_swarm_advertise_addr=$(ip -f inet addr show eth1 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p')" \
   -e "sshd_port=${var.ssh_port}" \
   -e "{\"certificates\": $CERTIFICATES}" \
-  -e "traefik_letsencrypt_ca_server=https://acme-v02.api.letsencrypt.org/directory" \
   -e "mongodb_host=${digitalocean_database_cluster.mongodb-lxx-cluster.uri}" \
-  -e "mongodb_port=${digitalocean_database_cluster.mongodb-lxx-cluster.port}" \
   -e "mongodb_database=${digitalocean_database_db.mongodb-lxx-db.name}" \
   -e "mongodb_user=lxx" \
   -e "mongodb_password=${digitalocean_database_user.mongodb-lxx-user.password}" \
