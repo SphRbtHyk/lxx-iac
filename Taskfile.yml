@@ -11,6 +11,7 @@ vars:
   ACCOUNT_EMAIL: '{{.ACCOUNT_EMAIL | default "admin@lxx.quest" }}'
   DROPLET_SIZE: '{{.DROPLET_SIZE | default "s-1vcpu-1gb"}}'
   DROPLET_NAME: '{{.DROPLET_NAME | default "lxx-01"}}'
+  DB_NAME: '{{.DB_NAME | default "gnt" }}'
   DO_REGION: '{{.DO_REGION | default "fra1"}}'
   DB_CLUSTER_NAME: '{{.DB_CLUSTER_NAME | default "lxx-cluster"}}'
   DB_CLUSTER_SIZE: '{{.DB_CLUSTER_SIZE | default "db-s-1vcpu-1gb" }}'
@@ -42,6 +43,7 @@ tasks:
           -var "ssh_private_key={{.PRIVATE_KEY_FILE}} " \
           -var "droplet_size={{.DROPLET_SIZE}}" \
           -var "droplet_name={{.DROPLET_NAME}}" \
+          -var "db_name={{.DB_NAME}}" \
           -var "db_cluster_size={{.DB_CLUSTER_SIZE}}" \
           -var "db_cluster_name={{.DB_CLUSTER_NAME}}" \
           -var "region={{.DO_REGION}}" \
@@ -63,6 +65,7 @@ tasks:
           -var "droplet_size={{.DROPLET_SIZE}}" \
           -var "droplet_name={{.DROPLET_NAME}}" \
           -var "db_cluster_size={{.DB_CLUSTER_SIZE}}" \
+          -var "db_name={{.DB_NAME}}" \
           -var "db_cluster_name={{.DB_CLUSTER_NAME}}" \
           -var "region={{.DO_REGION}}" \
           -var "git_repo={{.GIT_REPO}}"
