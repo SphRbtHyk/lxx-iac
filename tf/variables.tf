@@ -3,6 +3,12 @@ variable "do_token" {
   description = "Digital ocean token. See [digital ocean provider documentation](https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs#token)"
 }
 
+variable "git_repo" {
+  type        = string
+  description = "URL to the git repository"
+  default     = "https://github.com/SphRbtHyk/lxx-iac.git"
+}
+
 variable "domain_name" {
   type        = string
   description = "Domain to manage using Digital Ocean"

@@ -78,7 +78,7 @@ export CERTIFICATES=$(jq --arg key0 'account_email' \
 
 # Configure system using ansible
 ansible-galaxy collection install community.docker
-ansible-pull -U https://github.com/SphRbtHyk/lxx-iac.git \
+ansible-pull -U ${var.git_repo} \
   -i "$(hostname --short)," \
   -e "traefik_dns_challenge_token=${var.do_token}" \
   -e "do_auth_token=${var.do_token}" \

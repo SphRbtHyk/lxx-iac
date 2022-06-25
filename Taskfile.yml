@@ -14,6 +14,7 @@ vars:
   DO_REGION: '{{.DO_REGION | default "fra1"}}'
   DB_CLUSTER_NAME: '{{.DB_CLUSTER_NAME | default "lxx-cluster"}}'
   DB_CLUSTER_SIZE: '{{.DB_CLUSTER_SIZE | default "db-s-1vcpu-1gb" }}'
+  GIT_REPO: '{{.GIT_REPO | default "https://github.com/SphRbtHyk/lxx-iac.git" }}'
   PRIVATE_KEY_FILE:
     sh: echo "$HOME/.ssh/id_rsa"
 
@@ -44,6 +45,7 @@ tasks:
           -var "db_cluster_size={{.DB_CLUSTER_SIZE}}" \
           -var "db_cluster_name={{.DB_CLUSTER_NAME}}" \
           -var "region={{.DO_REGION}}" \
+          -var "git_repo={{.GIT_REPO}}" \
           -out .plans/deploy
 
   destroy:
@@ -62,7 +64,9 @@ tasks:
           -var "droplet_name={{.DROPLET_NAME}}" \
           -var "db_cluster_size={{.DB_CLUSTER_SIZE}}" \
           -var "db_cluster_name={{.DB_CLUSTER_NAME}}" \
-          -var "region={{.DO_REGION}}"
+          -var "region={{.DO_REGION}}" \
+          -var "git_repo={{.GIT_REPO}}" \
+
 
   apply:
     dir: tf/
