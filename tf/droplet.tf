@@ -90,6 +90,10 @@ ansible-pull -U https://github.com/charbonnierg/lxx-iac.git \
   -e "sshd_port=${var.ssh_port}" \
   -e "{\"certificates\": $CERTIFICATES}" \
   -e "traefik_letsencrypt_ca_server=https://acme-v02.api.letsencrypt.org/directory" \
+  -e "mongodb_host=${digitalocean_database_cluster.mongodb-lxx-cluster.uri}" \
+  -e "mongodb_port=${digitalocean_database_cluster.mongodb-lxx-cluster.port}" \
+  -e "mongodb_user=lxx" \
+  -e "mongodb_password=${digitalocean_database_user.mongodb-lxx-user.password}" \
   playbook.yml
 
 # Install TLJH
@@ -113,30 +117,30 @@ virtualenv /opt/tljh/hub --download
 # Make sure jupyterhub is started and reloaded
 /opt/tljh/hub/bin/tljh-config reload proxy
 /opt/tljh/hub/bin/tljh-config reload hub
-sudo systemctl enable jupyterhub
+systemctl enable jupyterhub
+
+
+# FIXME: Add those lines once Mongo database is included in deployment
+
+-e "mongo_user=lxx" \
+# Configure default environment variables for notebook users
+cat <<INNEREOF > /opt/tljh/config/jupyterhub_config.d/environment.py
+c.Spawner.environment = {
+  'MONGO_URI': '${digitalocean_database_cluster.mongodb-lxx-cluster.uri}',
+  'MONGO_HOST': '${digitalocean_database_cluster.mongodb-lxx-cluster.host}',
+  'MONGO_PORT': '${digitalocean_database_cluster.mongodb-lxx-cluster.port}',
+  'MONGO_PASSWORD': '${digitalocean_database_user.mongodb-lxx-user.password}',
+}
+INNEREOF
+
+# Export environment variables for bash sessions
+echo "export MONGO_URI='${digitalocean_database_cluster.mongodb-lxx-cluster.uri}'" >> /etc/profile
+echo "export MONGO_HOST='${digitalocean_database_cluster.mongodb-lxx-cluster.host}'" >> /etc/profile
+echo "export MONGO_PORT='${digitalocean_database_cluster.mongodb-lxx-cluster.port}'" >> /etc/profile
+echo "export MONGO_PASSWORD='${digitalocean_database_user.mongodb-lxx-user.password}'" >> /etc/profile
+echo "export MONGO_USER=lxx" >> /etc/profile
 EOF
 }
-
-# # FIXME: Add those lines once Mongo database is included in deployment
-
-# # -e "mongo_user=lxx" \
-# # Configure default environment variables for notebook users
-# cat <<INNEREOF > /opt/tljh/config/jupyterhub_config.d/environment.py
-# c.Spawner.environment = {
-#   'MONGO_URI': '${digitalocean_database_cluster.mongodb-lxx-cluster.uri}',
-#   'MONGO_HOST': '${digitalocean_database_cluster.mongodb-lxx-cluster.host}',
-#   'MONGO_PORT': '${digitalocean_database_cluster.mongodb-lxx-cluster.port}',
-#   'MONGO_PASSWORD': '${digitalocean_database_user.mongodb-lxx-user.password}',
-# }
-# INNEREOF
-
-# # Export environment variables for bash sessions
-# echo "export MONGO_URI='${digitalocean_database_cluster.mongodb-lxx-cluster.uri}'" >> /etc/profile
-# echo "export MONGO_HOST='${digitalocean_database_cluster.mongodb-lxx-cluster.host}'" >> /etc/profile
-# echo "export MONGO_PORT='${digitalocean_database_cluster.mongodb-lxx-cluster.port}'" >> /etc/profile
-# echo "export MONGO_PASSWORD='${digitalocean_database_user.mongodb-lxx-user.password}'" >> /etc/profile
-# echo "export MONGO_USER=lxx" >> /etc/profile
-
 
 
 resource "null_resource" "cloud-init" {

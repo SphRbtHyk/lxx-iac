@@ -31,6 +31,13 @@
     name: "{{ bible_clusterer_service_name  }}"
     # Service images
     image: "{{ bible_clusterer_image }}"
+    # Fill in environment variables
+    env:
+      GNT_MONGODB_HOST: "{{ mongodb_host }}"
+      GNT_MONGODB_PORT: "{ mongodb_port }}"
+      GNT_MONGODB_DATABASE: "{{ mongodb_database }}"
+      GNT_MONGODB_USER: "{{ mongodb_user }}"
+      GNT_MONGODB_PASSWORD: "{{ mongodb_password }}"
     # Add constraint on service deployment
     mode: replicated
     replicas: "{{ bible_clusterer_replicas }}"

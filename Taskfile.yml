@@ -33,7 +33,7 @@ tasks:
       - mkdir -p .plans/
       - |
         terraform plan \
-          -var "do_token={{.DO_PAT}}" \
+          -var "do_token={{.DO_TOKEN}}" \
           -var "domain_name={{.DO_DOMAIN_NAME}}" \
           -var "domain={{.DOMAIN_NAME}}" \
           -var "account_email={{.ACCOUNT_EMAIL}}" \

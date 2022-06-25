@@ -1,8 +1,7 @@
 bible_clusterer_subdomain: app
 traefik_domain: lxx.quest
 
-# FIXME: Define image name
-bible_clusterer_image: "..."
+bible_clusterer_image: "ghcr.io/sphrbthyk/bible-clusterer:main"
 
 bible_clusterer_replicas: 1
 
