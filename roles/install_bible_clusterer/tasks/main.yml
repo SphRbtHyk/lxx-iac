@@ -34,7 +34,7 @@
     # Fill in environment variables
     env:
       GNT_MONGODB_HOST: "{{ mongodb_host }}"
-      GNT_MONGODB_PORT: "{ mongodb_port }}"
+      GNT_MONGODB_PORT: "{{ mongodb_port }}"
       GNT_MONGODB_DATABASE: "{{ mongodb_database }}"
       GNT_MONGODB_USER: "{{ mongodb_user }}"
       GNT_MONGODB_PASSWORD: "{{ mongodb_password }}"
