@@ -54,7 +54,7 @@ tasks:
       - |
         terraform apply -destroy \
           -auto-approve \
-          -var "do_token={{.DO_PAT}}" \
+          -var "do_token={{.DO_TOKEN}}" \
           -var "domain_name={{.DO_DOMAIN_NAME}}" \
           -var "domain={{.DOMAIN_NAME}}" \
           -var "account_email={{.ACCOUNT_EMAIL}}" \
@@ -65,7 +65,7 @@ tasks:
           -var "db_cluster_size={{.DB_CLUSTER_SIZE}}" \
           -var "db_cluster_name={{.DB_CLUSTER_NAME}}" \
           -var "region={{.DO_REGION}}" \
-          -var "git_repo={{.GIT_REPO}}" \
+          -var "git_repo={{.GIT_REPO}}"
 
 
   apply:

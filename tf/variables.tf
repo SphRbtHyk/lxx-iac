@@ -79,7 +79,7 @@ variable "db_cluster_version" {
 variable "db_name" {
   type        = string
   description = "name of database"
-  default     = "lxx"
+  default     = "gnt"
 }
 
 variable "db_user_name" {
