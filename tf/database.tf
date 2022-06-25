@@ -21,11 +21,11 @@ resource "digitalocean_database_db" "mongodb-lxx-db" {
 }
 
 # Create a database firewall to allow incoming trafic from droplet only
-resource "digitalocean_database_firewall" "mongodb-lxx-fw" {
-  cluster_id = digitalocean_database_cluster.mongodb-lxx-cluster.id
+# resource "digitalocean_database_firewall" "mongodb-lxx-fw" {
+#   cluster_id = digitalocean_database_cluster.mongodb-lxx-cluster.id
 
-  rule {
-    type  = "droplet"
-    value = digitalocean_droplet.lxx-droplet.id
-  }
-}
+#   rule {
+#     type  = "droplet"
+#     value = digitalocean_droplet.lxx-droplet.id
+#   }
+# }
